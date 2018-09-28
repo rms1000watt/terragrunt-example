@@ -1,7 +1,6 @@
 terragrunt {
   terraform {
-    // source = "git::git@github.com:screening/ryan-matthew-smith//terraform/apps/rds?ref=0.1.0"
-    source = "../../../../../apps//rds"
+    source = "git::git@github.com:rms1000watt/terragrunt-example//terraform/apps/rds?ref=0.1.0"
   }
 
   include {
