@@ -42,7 +42,8 @@ create-app() {
     cat << EOF > "$file"
 terragrunt {
   terraform {
-    source = "git::${remote}//terraform/apps/${app_name}?ref=0.1.0"
+    source = "git::${remote}//apps/${app_name}?ref=0.1.0"
+    // source = "../../../../../apps/${app_name}"
   }
 
   include {
