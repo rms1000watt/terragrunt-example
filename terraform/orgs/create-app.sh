@@ -26,9 +26,11 @@ create-app() {
   fi
 
   wd=$(pwd)
+  sourceBackPath="/.."
   cd "$path" || exit 1
   if [[ $region = $region_global ]]; then
     ln -s ../../../main.tf
+    sourceBackPath=""
   else
     ln -s ../../../../main.tf
   fi
@@ -43,7 +45,7 @@ create-app() {
 terragrunt {
   terraform {
     source = "git::${remote}//apps/${app_name}?ref=0.1.0"
-    // source = "../../../../../apps/${app_name}"
+    // source = "../../../..${sourceBackPath}/apps/${app_name}"
   }
 
   include {
