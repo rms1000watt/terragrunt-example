@@ -111,11 +111,11 @@ For future Terraform development, 2 convenience scripts have been created to cre
 
 ### Create New Org
 
-`vi terraform/orgs/create-org.sh` and change the parameters at the top of the file. Then run
+Run:
 
 ```bash
 cd terraform/orgs
-./create-org.sh
+ORG_NAME=org-x AWS_PROFILE=org-x AWS_REMOTE_STATE_REGION=us-west-2 ./create-org.sh
 ```
 
 ### Create New App

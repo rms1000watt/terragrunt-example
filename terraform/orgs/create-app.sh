@@ -34,11 +34,17 @@ create-app() {
   fi
   cd "$wd" || exit 1
 
+  remote=$(git remote -v | grep origin | awk '{print $2}' | head -1)
+
   file="$path/terraform.tfvars"
   if [[ ! -f $file ]]; then
     echo "Creating file: $file"
     cat << EOF > "$file"
 terragrunt {
+  terraform {
+    source = "git::${remote}//terraform/apps/${app_name}?ref=0.1.0"
+  }
+
   include {
     path = "\${find_in_parent_folders()}"
   }
@@ -72,5 +78,9 @@ if [[ -z $1 ]]; then echo "ERROR: \$1 (org_name) not specified. Exiting.."    &&
 if [[ -z $2 ]]; then echo "ERROR: \$2 (region) not specified. Exiting.."      && exit 1; fi
 if [[ -z $3 ]]; then echo "ERROR: \$3 (environment) not specified. Exiting.." && exit 1; fi
 if [[ -z $4 ]]; then echo "ERROR: \$4 (app_name) not specified. Exiting.."    && exit 1; fi
+
+if ! git remote &> /dev/null; then echo "ERROR: not a git repository with remote defined. Exiting.." && exit 1; fi
+
+git remote -v | grep origin | awk '{print $2}' | head -1
 
 create-app "$1" "$2" "$3" "$4"
